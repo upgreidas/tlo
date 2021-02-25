@@ -11,6 +11,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,6 +23,9 @@ import { ConferenceMembersComponent } from './components/conference/conference-m
 import { ConferenceChatComponent } from './components/conference/conference-chat/conference-chat.component';
 import { NewParticipantModalComponent } from './components/conference/new-participant-modal/new-participant-modal.component';
 import { MemberService } from './services/member.service';
+import { WhiteboardComponent } from './components/conference/whiteboard/whiteboard.component';
+import { LibraryComponent } from './components/conference/library/library.component';
+import { CustomAppComponent } from './components/conference/custom-app/custom-app.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +35,9 @@ import { MemberService } from './services/member.service';
     ConferenceMembersComponent,
     ConferenceChatComponent,
     NewParticipantModalComponent,
+    WhiteboardComponent,
+    LibraryComponent,
+    CustomAppComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +55,7 @@ import { MemberService } from './services/member.service';
     MatFormFieldModule,
     MatInputModule,
     MatTabsModule,
+    MatCardModule,
   ],
   providers: [MemberService],
   bootstrap: [AppComponent],

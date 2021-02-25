@@ -29,6 +29,8 @@ export class ConferenceComponent implements OnInit {
 
   sidebarMode = null;
 
+  view = null;
+
   @ViewChild('memberList') memberList: ConferenceMembersComponent;
 
   constructor(
@@ -112,5 +114,9 @@ export class ConferenceComponent implements OnInit {
 
   toggleSidebar(mode: string) {
     this.sidebarMode = this.sidebarMode === mode ? null : mode;
+  }
+
+  toggleMainView(view: string) {
+    this.view = this.view === view ? null : view;
   }
 }

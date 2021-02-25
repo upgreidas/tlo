@@ -1,23 +1,32 @@
 <div class="conference-container">
     <div class="conference-main">
-        <div class="video-grid">
-            <div *ngFor="let participant of participants" class="participant mat-elevation-z8" [class.muted]="participant.muted">
-                <img [src]="participant.image" class="portrait">
-                <div class="label">{{ participant.name }}</div>
-                <button *ngIf="!participant.url" mat-icon-button class="mic" (click)="participant.muted = !participant.muted" matTooltip="Mute" matTooltipPosition="above">
-                  <mat-icon *ngIf="!participant.muted">mic</mat-icon>
-                  <mat-icon *ngIf="participant.muted">mic_off</mat-icon>
-                </button>
-                <button *ngIf="participant.url" mat-icon-button class="link" matTooltip="Copy Link" matTooltipPosition="above">
-                  <mat-icon>link</mat-icon>
-                </button>
-                <button mat-icon-button class="remove" (click)="removeParticipant(participant)" matTooltip="Remove Participant" matTooltipPosition="above">
-                  <mat-icon>close</mat-icon>
-                </button>
-            </div>
-            <div *ngIf="participants.length < 9" class="participant new" (click)="addParticipant()">
-                <mat-icon>add</mat-icon>
-                Add Participant
+        <div class="main-view">
+            <div class="view-contents">
+                <div class="view">
+                    <app-library *ngIf="view === 'library'"></app-library>
+                    <app-whiteboard *ngIf="view === 'whiteboard'"></app-whiteboard>
+                    <app-custom-app *ngIf="view === 'app'"></app-custom-app>
+                </div>
+                <div class="video-grid" [class.right]="view !== null">
+                    <div *ngFor="let participant of participants" class="participant mat-elevation-z8" [class.muted]="participant.muted">
+                        <img [src]="participant.image" class="portrait">
+                        <div class="label">{{ participant.name }}</div>
+                        <button *ngIf="!participant.url" mat-icon-button class="mic" (click)="participant.muted = !participant.muted" matTooltip="Mute" matTooltipPosition="above">
+                        <mat-icon *ngIf="!participant.muted">mic</mat-icon>
+                        <mat-icon *ngIf="participant.muted">mic_off</mat-icon>
+                        </button>
+                        <button *ngIf="participant.url" mat-icon-button class="link" matTooltip="Copy Link" matTooltipPosition="above">
+                        <mat-icon>link</mat-icon>
+                        </button>
+                        <button mat-icon-button class="remove" (click)="removeParticipant(participant)" matTooltip="Remove Participant" matTooltipPosition="above">
+                        <mat-icon>close</mat-icon>
+                        </button>
+                    </div>
+                    <div *ngIf="participants.length < 9" class="participant new" (click)="addParticipant()">
+                        <mat-icon>add</mat-icon>
+                        Add Participant
+                    </div>
+                </div>
             </div>
         </div>
         <div class="conference-sidebar" [class.open]="sidebarMode !== null">
@@ -26,7 +35,17 @@
         </div>
     </div>
     <div class="conference-bottom">
-        <div class="actions left"></div>
+        <div class="actions left">
+            <button mat-icon-button [color]="view === 'library' ? 'primary' : null" (click)="toggleMainView('library')" matTooltip="Links" matTooltipPosition="above">
+                <mat-icon>local_library</mat-icon>
+            </button>
+            <button mat-icon-button [color]="view === 'whiteboard' ? 'primary' : null" (click)="toggleMainView('whiteboard')" matTooltip="Whiteboard" matTooltipPosition="above">
+                <mat-icon>developer_board</mat-icon>
+            </button>
+            <button mat-icon-button [color]="view === 'app' ? 'primary' : null" (click)="toggleMainView('app')" matTooltip="Custom App" matTooltipPosition="above">
+                <mat-icon>android</mat-icon>
+            </button>
+        </div>
         <div class="actions center">
             <div *ngIf="!onCall">
                 <button mat-fab color="primary" class="call-btn" (click)="call()">
