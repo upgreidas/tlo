@@ -1,0 +1,12 @@
+<mat-nav-list>
+    <mat-list-item *ngFor="let member of memberService.members" class="member" [class.is-muted]="member.muted" [class.is-speaker]="member.speaker">
+        <span matLine>{{ member.name }}</span>
+        <button mat-icon-button class="action mute" (click)="mute(member)" matTooltip="Mute Chat" matTooltipPosition="above">
+            <mat-icon>speaker_notes_off</mat-icon>
+        </button>
+        <button mat-icon-button class="action speaker" (click)="setAsSpeaker(member)" matTooltip="Set as Speaker" matTooltipPosition="above">
+            <mat-icon>record_voice_over</mat-icon>
+        </button>
+    </mat-list-item>
+</mat-nav-list>
+  

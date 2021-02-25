@@ -1,0 +1,69 @@
+<div class="conference-container">
+    <div class="conference-main">
+        <div class="video-grid">
+            <div *ngFor="let participant of participants" class="participant mat-elevation-z8" [class.muted]="participant.muted">
+                <img [src]="participant.image" class="portrait">
+                <div class="label">{{ participant.name }}</div>
+                <button *ngIf="!participant.url" mat-icon-button class="mic" (click)="participant.muted = !participant.muted" matTooltip="Mute" matTooltipPosition="above">
+                  <mat-icon *ngIf="!participant.muted">mic</mat-icon>
+                  <mat-icon *ngIf="participant.muted">mic_off</mat-icon>
+                </button>
+                <button *ngIf="participant.url" mat-icon-button class="link" matTooltip="Copy Link" matTooltipPosition="above">
+                  <mat-icon>link</mat-icon>
+                </button>
+                <button mat-icon-button class="remove" (click)="removeParticipant(participant)" matTooltip="Remove Participant" matTooltipPosition="above">
+                  <mat-icon>close</mat-icon>
+                </button>
+            </div>
+            <div *ngIf="participants.length < 9" class="participant new" (click)="addParticipant()">
+                <mat-icon>add</mat-icon>
+                Add Participant
+            </div>
+        </div>
+        <div class="conference-sidebar" [class.open]="sidebarMode !== null">
+            <app-conference-members [hidden]="sidebarMode !== 'viewers'" (onChangeSpeaker)="toggleSpeaker($event)" #memberList></app-conference-members>
+            <app-conference-chat [hidden]="sidebarMode !== 'chat'"></app-conference-chat>
+        </div>
+    </div>
+    <div class="conference-bottom">
+        <div class="actions left"></div>
+        <div class="actions center">
+            <div *ngIf="!onCall">
+                <button mat-fab color="primary" class="call-btn" (click)="call()">
+                    <mat-icon>call</mat-icon>
+                </button>
+            </div>
+
+            <div *ngIf="onCall">
+                <button mat-icon-button (click)="toggleMic()">
+                    <mat-icon *ngIf="!muted">mic</mat-icon>
+                    <mat-icon *ngIf="muted">mic_off</mat-icon>
+                </button>
+
+                <button mat-fab color="warn" class="call-btn" (click)="endCall()">
+                    <mat-icon>call_end</mat-icon>
+                </button>
+
+                <mat-button-toggle-group [(ngModel)]="videoTarget">
+                    <mat-button-toggle value="none" matTooltip="Disable Video" matTooltipPosition="above">
+                        <mat-icon>close</mat-icon>
+                    </mat-button-toggle>
+                    <mat-button-toggle value="camera" matTooltip="Toggle Camera" matTooltipPosition="above">
+                        <mat-icon>videocam</mat-icon>
+                    </mat-button-toggle>
+                    <mat-button-toggle value="screen" matTooltip="Toggle Screen Sharing" matTooltipPosition="above">
+                        <mat-icon>screen_share</mat-icon>
+                    </mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+        </div>
+        <div class="actions right">
+            <button mat-icon-button [color]="sidebarMode === 'viewers' ? 'primary' : null" (click)="toggleSidebar('viewers')"  matTooltip="Toggle Viewers List" matTooltipPosition="above">
+                <mat-icon>group</mat-icon>
+            </button>
+            <button mat-icon-button [color]="sidebarMode === 'chat' ? 'primary' : null" (click)="toggleSidebar('chat')"  matTooltip="Toggle Chat" matTooltipPosition="above">
+                <mat-icon>chat</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

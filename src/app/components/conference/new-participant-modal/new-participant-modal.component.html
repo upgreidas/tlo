@@ -1,0 +1,38 @@
+<mat-tab-group dynamicHeight (selectedIndexChange)="onTabChange($event)">
+    <mat-tab label="Invite">
+        <div style="padding-top: 12px;">
+            <mat-form-field class="full-width">
+                <mat-label>Participant's Name</mat-label>
+                <input matInput [(ngModel)]="data.participant.name">
+            </mat-form-field>
+        </div>
+    </mat-tab>
+    <mat-tab label="Viewers">
+        <div style="padding-top: 12px;">
+            <mat-nav-list>
+                <mat-list-item *ngFor="let member of memberService.members" class="member" [class.is-muted]="member.muted" [class.is-speaker]="member.speaker">
+                    <span matLine>{{ member.name }}</span>
+                    <button mat-icon-button class="action mute" (click)="mute(member)" matTooltip="Mute Chat" matTooltipPosition="above">
+                        <mat-icon>speaker_notes_off</mat-icon>
+                    </button>
+                    <button mat-icon-button class="action speaker" (click)="setAsSpeaker(member)" matTooltip="Set as Speaker" matTooltipPosition="above">
+                        <mat-icon>record_voice_over</mat-icon>
+                    </button>
+                </mat-list-item>
+            </mat-nav-list>            
+        </div>
+    </mat-tab>
+</mat-tab-group>
+<div *ngIf="currentIndex === 0" mat-dialog-actions align="end">
+    <button mat-button (click)="dialogRef.close()">Cancel</button>
+    <button mat-flat-button color="primary" [mat-dialog-close]="data.participant" cdkFocusInitial>Add</button>
+</div>
+
+<!-- <mat-form-field class="full-width">
+    <mat-label>Participant's Name</mat-label>
+    <input matInput [(ngModel)]="data.participant.name">
+  </mat-form-field>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="dialogRef.close()">Cancel</button>
+  <button mat-flat-button color="primary" [mat-dialog-close]="data.participant" cdkFocusInitial>Add</button>
+</div> -->

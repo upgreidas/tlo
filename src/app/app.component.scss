@@ -1,0 +1,27 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.topbar {
+  border-bottom: solid 1px rgba(0, 0, 0, 0.12);
+}
+
+.mat-drawer-container {
+  background: #fff;
+}
+
+.main-container {
+  display: flex;
+  flex: 2;
+}
+
+.left-sidenav {
+  background: #f5f5f5;
+  width: 260px;
+}
+
+.page-container {
+  width: 100%;
+}

@@ -1,0 +1,25 @@
+.member {
+  .action {
+    display: none;
+  }
+
+  &:hover {
+    .action {
+      display: inline-block;
+    }
+  }
+
+  &.is-speaker {
+    .speaker {
+      display: inline-block;
+      color: blue;
+    }
+  }
+
+  &.is-muted {
+    .mute {
+      display: inline-block;
+      color: red;
+    }
+  }
+}
